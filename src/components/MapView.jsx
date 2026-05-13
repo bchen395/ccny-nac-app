@@ -1,6 +1,6 @@
 import RouteOverlay from './RouteOverlay.jsx';
 
-export default function MapView({ floor, selectedRoom }) {
+export default function MapView({ floor, selectedRoom, onSelectRoom }) {
   return (
     <div className="mapView" aria-label={`${floor.name} map`}>
       <svg viewBox="0 0 900 570" role="img">
@@ -23,7 +23,16 @@ export default function MapView({ floor, selectedRoom }) {
           const isSelected = selectedRoom?.id === room.id;
 
           return (
-            <g className={`mapRoom ${isSelected ? 'isSelected' : ''}`} key={room.id}>
+            <g
+              className={`mapRoom ${isSelected ? 'isSelected' : ''}`}
+              key={room.id}
+              role="button"
+              aria-pressed={isSelected}
+              aria-label={room.name}
+              tabIndex={0}
+              onClick={() => onSelectRoom(room)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelectRoom(room); }}
+            >
               <rect
                 x={room.x}
                 y={room.y}

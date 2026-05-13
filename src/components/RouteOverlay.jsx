@@ -5,6 +5,8 @@ export default function RouteOverlay({ selectedRoom, youAreHere }) {
 
   const targetX = selectedRoom.x + selectedRoom.width / 2;
   const targetY = selectedRoom.y + selectedRoom.height / 2;
+
+  // Go up through the vertical corridor, then horizontal to the room
   const elbowY = Math.max(Math.min(targetY + 86, youAreHere.y - 54), 284);
   const points = [
     `${youAreHere.x},${youAreHere.y}`,

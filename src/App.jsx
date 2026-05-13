@@ -32,6 +32,18 @@ export default function App() {
     selectFloor(floorIds[nextIndex]);
   }
 
+  function handleSearchSelect(floorId, room) {
+    setCurrentFloorId(floorId);
+    setSelectedRoom(room);
+    setShowFloorDropdown(false);
+    setShowAlerts(false);
+  }
+
+  function handleSelectRoom(room) {
+    setSelectedRoom((current) => (current?.id === room.id ? null : room));
+    setShowFloorDropdown(false);
+  }
+
   function toggleFavorite(roomId) {
     setFavoriteRoomIds((currentFavorites) => {
       const nextFavorites = new Set(currentFavorites);
@@ -68,10 +80,11 @@ export default function App() {
                 setShowFloorDropdown(false);
               }}
               onToggleFavoritesOnly={() => setShowFavoritesOnly((isShowing) => !isShowing)}
+              onSearchSelect={handleSearchSelect}
             />
 
             <div className="mapStage">
-              <MapView floor={currentFloor} selectedRoom={selectedRoom} />
+              <MapView floor={currentFloor} selectedRoom={selectedRoom} onSelectRoom={handleSelectRoom} />
               <NavArrows onPrevious={() => moveFloor(-1)} onNext={() => moveFloor(1)} />
               {showAlerts ? <AlertsPanel alerts={alerts} onClose={() => setShowAlerts(false)} /> : null}
             </div>
@@ -91,10 +104,7 @@ export default function App() {
             favoriteRoomIds={favoriteRoomIds}
             selectedRoom={selectedRoom}
             showFavoritesOnly={showFavoritesOnly}
-            onSelectRoom={(room) => {
-              setSelectedRoom(room);
-              setShowFloorDropdown(false);
-            }}
+            onSelectRoom={handleSelectRoom}
             onToggleFavorite={toggleFavorite}
           />
         </section>

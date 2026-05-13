@@ -21,7 +21,7 @@ export const floors = [
     rooms: [
       { id: 'lobby', name: 'Lobby', x: 90, y: 392, width: 230, height: 92 },
       { id: 'room-101', name: 'Room 101', x: 84, y: 144, width: 178, height: 112 },
-      { id: 'room-102', name: 'Room 102', x: 294, y: 144, width: 126, height: 112 },
+      { id: 'room-102', name: 'Room 102', x: 294, y: 144, width: 112, height: 112 },
       { id: 'room-103', name: 'Room 103', x: 514, y: 144, width: 156, height: 112 },
       { id: 'cafeteria', name: 'Cafeteria', x: 604, y: 392, width: 190, height: 92 },
     ],
