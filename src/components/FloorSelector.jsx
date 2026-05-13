@@ -1,16 +1,18 @@
-import { ChevronDownIcon, MapPinIcon } from './Icons.jsx';
+import { ChevronDownIcon, MenuIcon, MapPinIcon } from './Icons.jsx';
 
 export default function FloorSelector({
   floors,
   currentFloorId,
   showDropdown,
+  trigger = 'floor',
   onToggle,
   onSelect,
 }) {
   const currentFloor = floors.find((floor) => floor.id === currentFloorId);
+  const isMenuTrigger = trigger === 'menu';
 
   return (
-    <div className="floorSelector">
+    <div className={`floorSelector ${isMenuTrigger ? 'floorSelectorMenu' : ''}`}>
       {showDropdown ? (
         <div className="floorMenu" role="menu" aria-label="Select floor">
           {floors.map((floor) => (
@@ -29,17 +31,24 @@ export default function FloorSelector({
       ) : null}
 
       <button
-        className="floorButton"
+        className={`floorButton ${isMenuTrigger ? 'floorMenuTrigger' : ''}`}
         type="button"
+        aria-label={isMenuTrigger ? 'Open floor menu' : undefined}
         aria-expanded={showDropdown}
         aria-haspopup="menu"
         onClick={onToggle}
       >
-        <span className="floorIcon" aria-hidden="true">
-          <MapPinIcon size={18} />
-        </span>
-        <span>{currentFloor.name}</span>
-        <ChevronDownIcon size={18} />
+        {isMenuTrigger ? (
+          <MenuIcon size={34} />
+        ) : (
+          <>
+            <span className="floorIcon" aria-hidden="true">
+              <MapPinIcon size={18} />
+            </span>
+            <span>{currentFloor.name}</span>
+            <ChevronDownIcon size={18} />
+          </>
+        )}
       </button>
     </div>
   );
